@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AMOD TRANSPORT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Hind:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--asphalt:#12151a;--road:#1b1f26;--amber:#ffb81c;--sign:#fff6dc;--green:#2fd27a;--red:#ff5a4d;--mute:#9aa3b0;--line:#2a303a}
+*{box-sizing:border-box;margin:0}
+html,body{min-height:100%}
+body{font-family:Hind,system-ui,sans-serif;background:var(--asphalt);color:#eef1f5;line-height:1.5;
+ background-image:radial-gradient(900px 420px at 80% -10%,rgba(255,184,28,.14),transparent 60%),radial-gradient(700px 400px at -10% 40%,rgba(47,210,122,.06),transparent 60%)}
+.hero{position:relative;overflow:hidden;padding:56px 20px 120px;text-align:center;border-bottom:4px solid var(--amber)}
+.hero h1{font-family:'Bebas Neue',Impact,sans-serif;font-size:clamp(52px,13vw,120px);letter-spacing:.06em;line-height:1;color:var(--sign);text-shadow:0 4px 0 #000}
+.hero p{color:var(--mute);font-size:18px;margin-top:8px}
+.road{position:absolute;left:0;right:0;bottom:0;height:78px;background:var(--road);border-top:3px solid #3a4150}
+.road::before{content:"";position:absolute;left:0;right:0;top:50%;height:6px;transform:translateY(-50%);
+ background:repeating-linear-gradient(90deg,var(--amber) 0 46px,transparent 46px 92px);animation:lane 1.1s linear infinite}
+.truck{position:absolute;bottom:36px;left:0;width:150px;animation:drive 9s linear infinite;filter:drop-shadow(0 6px 4px rgba(0,0,0,.5))}
+.truck .wheel{transform-box:fill-box;transform-origin:center;animation:spin .5s linear infinite}
+@keyframes lane{to{background-position:-92px 0}}
+@keyframes drive{0%{transform:translateX(-170px)}100%{transform:translateX(calc(100vw + 20px))}}
+@keyframes spin{to{transform:rotate(360deg)}}
+main{max-width:1000px;margin:0 auto;padding:28px 16px 40px}
+.bar{display:flex;gap:12px;align-items:center;margin-bottom:20px}
+.bar input{flex:1}
+input,select{width:100%;padding:12px 14px;font:inherit;color:#fff;background:var(--road);border:1px solid var(--line);border-radius:8px}
+input:focus,select:focus,button:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px}
+.card{background:var(--road);border:1px solid var(--line);border-radius:12px;padding:18px;animation:rise .6s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*70ms);transition:transform .2s,border-color .2s}
+.card:hover{transform:translateY(-4px);border-color:var(--amber)}
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.name{font-size:20px;font-weight:600}
+.plate{display:inline-block;margin:8px 0;padding:3px 12px;background:var(--amber);color:#111;font-family:'Bebas Neue',Impact,sans-serif;font-size:22px;letter-spacing:.1em;border:2px solid #111;border-radius:6px;box-shadow:0 0 0 2px var(--amber)}
+.load{margin:10px 0;padding:10px 12px;border-left:4px solid var(--green);background:rgba(47,210,122,.08);border-radius:0 8px 8px 0;font-size:15px}
+.load.none{border-color:var(--line);background:transparent;color:var(--mute)}
+.load b{color:var(--green)}
+.acts{display:flex;gap:8px;margin-top:8px}
+.btn{display:inline-block;padding:10px 16px;font:600 15px Hind,sans-serif;text-align:center;text-decoration:none;color:#111;background:var(--amber);border:0;border-radius:8px;cursor:pointer}
+.btn.green{background:var(--green)}.btn.ghost{background:transparent;color:#fff;border:1px solid var(--line)}.btn.red{background:var(--red);color:#fff}
+.btn.sm{padding:6px 12px;font-size:14px}
+.acts .btn{flex:1}
+.empty,.msg{padding:28px;text-align:center;color:var(--mute);border:1px dashed var(--line);border-radius:12px}
+.msg.warn{color:var(--amber);border-color:var(--amber)}
+footer{border-top:1px solid var(--line);padding:26px 16px;text-align:center}
+footer .btn{margin:4px}
+footer small{display:block;color:var(--mute);margin-top:12px}
+dialog{width:min(560px,94vw);max-height:90vh;overflow:auto;background:var(--asphalt);color:#fff;border:2px solid var(--amber);border-radius:14px;padding:22px}
+dialog::backdrop{background:rgba(0,0,0,.7)}
+dialog[open]{animation:pop .25s ease-out}
+@keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+h2{font-family:'Bebas Neue',Impact,sans-serif;font-size:32px;letter-spacing:.05em;color:var(--amber);font-weight:400}
+h3{font-size:17px;margin:20px 0 8px}
+label{display:block;font-size:14px;color:var(--mute);margin:12px 0 4px}
+.err{color:var(--red);min-height:22px;margin-top:8px;font-size:14px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 0;border-bottom:1px solid var(--line)}
+.row small{color:var(--mute);display:block}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <h1>AMOD TRANSPORT</h1>
+  <p>Bharosemand drivers aur gaadiyan, aapke route ke hisaab se.</p>
+  <div class="road" aria-hidden="true">
+    <svg class="truck" viewBox="0 0 150 70"><rect x="2" y="8" width="92" height="42" rx="4" fill="#ffb81c"/><rect x="2" y="8" width="92" height="8" fill="#e09a00"/><path d="M98 20h26l16 18v12H98z" fill="#fff6dc"/><path d="M104 25h17l10 12h-27z" fill="#12151a"/><rect x="140" y="40" width="8" height="6" fill="#fff"/><circle class="wheel" cx="26" cy="54" r="11" fill="#111" stroke="#888" stroke-width="3" stroke-dasharray="6 4"/><circle class="wheel" cx="68" cy="54" r="11" fill="#111" stroke="#888" stroke-width="3" stroke-dasharray="6 4"/><circle class="wheel" cx="120" cy="54" r="11" fill="#111" stroke="#888" stroke-width="3" stroke-dasharray="6 4"/></svg>
+  </div>
+</header>
+
+<main>
+  <div class="bar"><input id="q" type="search" placeholder="Driver ka naam ya gaadi number search karein"></div>
+  <div id="status"></div>
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer>
+  <button class="btn ghost" id="openAdmin">Admin login</button>
+  <button class="btn ghost" id="openLoad">Load update login</button>
+  <small>&copy; AMOD TRANSPORT</small>
+</footer>
+
+<dialog id="dlg"></dialog>
+
+<script>
+/* ===== SETUP (sirf ye 2 cheezein badalni hain) ===== */
+const BIN_ID = 'YAHAN_JSONBIN_BIN_ID';
+const WRITE_KEY = 'YAHAN_JSONBIN_ACCESS_KEY';
+/* Password ke SHA-256 hash (plain password code mein nahi hai) */
+const H_ADMIN = '33d1bec734ca658c41aad5ff4984cf613c8253b4adc76dff888330fed8c0927a';
+const H_LOAD = '1fbe7e405c16b05f2dbf39d64da8f4768b8cd86f780a8eba1db6b828dda095a4';
+/* ================================================== */
+
+const API = 'https://api.jsonbin.io/v3/b/' + BIN_ID;
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let db = {drivers: [], loads: {}};
+let ready = !BIN_ID.startsWith('YAHAN');
+
+async function sha(t){
+  const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t));
+  return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2,'0')).join('');
+}
+async function fetchData(){
+  if(!ready){ $('#status').innerHTML = '<div class="msg warn">Setup baaki hai: code mein BIN_ID aur WRITE_KEY daalein.</div>'; return; }
+  try{
+    const r = await fetch(API + '/latest', {headers: {'X-Bin-Meta':'false','X-Access-Key':WRITE_KEY}});
+    if(!r.ok) throw 0;
+    const d = await r.json();
+    db = {drivers: d.drivers || [], loads: d.loads || {}};
+    $('#status').innerHTML = '';
+  }catch(e){ $('#status').innerHTML = '<div class="msg warn">Data load nahi hua. Internet ya BIN_ID check karein.</div>'; }
+  render();
+}
+async function save(){
+  const r = await fetch(API, {method:'PUT', headers:{'Content-Type':'application/json','X-Access-Key':WRITE_KEY}, body: JSON.stringify(db)});
+  if(!r.ok) throw new Error('save');
+}
+function render(){
+  const q = $('#q').value.trim().toLowerCase();
+  const list = db.drivers.filter(d => (d.name + ' ' + d.vehicle).toLowerCase().includes(q));
+  $('#grid').innerHTML = list.length ? list.map((d,i) => {
+    const l = db.loads[d.id];
+    const load = l ? `<div class="load"><b>${esc(l.from)} &rarr; ${esc(l.to)}</b><br>Load: ${esc(l.load)}</div>` : '<div class="load none">Abhi koi load update nahi hai</div>';
+    return `<article class="card" style="--i:${i}"><div class="name">${esc(d.name)}</div><div class="plate">${esc(d.vehicle)}</div>${load}
+    <div class="acts"><a class="btn" href="tel:+91${esc(d.phone)}">Call karein</a><a class="btn green" href="https://wa.me/91${esc(d.phone)}" target="_blank" rel="noopener">WhatsApp</a></div></article>`;
+  }).join('') : (ready ? '<div class="empty">Koi driver nahi mila.</div>' : '');
+}
+$('#q').addEventListener('input', render);
+
+/* ---------- dialogs ---------- */
+const dlg = $('#dlg');
+function login(role){
+  dlg.innerHTML = `<h2>${role==='admin' ? 'Admin login' : 'Load update login'}</h2>
+  <label for="pw">Password</label><input id="pw" type="password" autocomplete="current-password">
+  <div class="err" id="err"></div>
+  <div class="acts"><button class="btn ghost" id="cx">Band karein</button><button class="btn" id="go">Login karein</button></div>`;
+  dlg.showModal(); $('#pw').focus();
+  $('#cx').onclick = () => dlg.close();
+  const go = async () => {
+    const h = await sha($('#pw').value);
+    if(h === (role==='admin' ? H_ADMIN : H_LOAD)) role==='admin' ? adminPanel() : loadPanel();
+    else $('#err').textContent = 'Password galat hai. Dobara try karein.';
+  };
+  $('#go').onclick = go; $('#pw').onkeydown = e => { if(e.key==='Enter') go(); };
+}
+$('#openAdmin').onclick = () => login('admin');
+$('#openLoad').onclick = () => login('load');
+
+async function commit(msg){
+  $('#err').textContent = 'Save ho raha hai...';
+  try{ await save(); render(); $('#err').style.color='var(--green)'; $('#err').textContent = msg; }
+  catch(e){ $('#err').style.color='var(--red)'; $('#err').textContent = 'Save nahi hua. WRITE_KEY aur BIN_ID check karein.'; }
+}
+
+function adminPanel(editId){
+  const d = db.drivers.find(x => x.id === editId) || {};
+  dlg.innerHTML = `<h2>Admin panel</h2>
+  <h3>${editId ? 'Driver edit karein' : 'Naya driver add karein'}</h3>
+  <label for="n">Driver ka naam</label><input id="n" value="${esc(d.name)}">
+  <label for="p">Driver ka mobile number (10 digit)</label><input id="p" inputmode="numeric" maxlength="10" value="${esc(d.phone)}">
+  <label for="v">Gaadi number</label><input id="v" value="${esc(d.vehicle)}" placeholder="BR01 AB 1234">
+  <div class="err" id="err"></div>
+  <div class="acts"><button class="btn" id="sv">${editId ? 'Update karein' : 'Driver add karein'}</button>${editId ? '<button class="btn ghost" id="nw">Naya driver</button>' : ''}</div>
+  <h3>Sabhi drivers (${db.drivers.length})</h3>
+  ${db.drivers.map(x => `<div class="row"><div>${esc(x.name)}<small>${esc(x.vehicle)} &middot; ${esc(x.phone)}</small></div><div><button class="btn sm ghost" data-e="${x.id}">Edit</button> <button class="btn sm red" data-d="${x.id}">Delete</button></div></div>`).join('') || '<div class="empty">Abhi koi driver nahi hai.</div>'}
+  <div class="acts" style="margin-top:18px"><button class="btn ghost" id="cx">Logout</button></div>`;
+  if(!dlg.open) dlg.showModal();
+  $('#cx').onclick = () => dlg.close();
+  if($('#nw')) $('#nw').onclick = () => adminPanel();
+  $('#sv').onclick = async () => {
+    const name = $('#n').value.trim(), phone = $('#p').value.trim(), vehicle = $('#v').value.trim().toUpperCase();
+    if(!name || !vehicle || !/^\d{10}$/.test(phone)){ $('#err').textContent = 'Naam, gaadi number aur 10 digit mobile number sahi daalein.'; return; }
+    if(editId) Object.assign(db.drivers.find(x => x.id === editId), {name, phone, vehicle});
+    else db.drivers.push({id: 'd' + Date.now().toString(36), name, phone, vehicle});
+    await commit('Save ho gaya.'); setTimeout(() => adminPanel(), 700);
+  };
+  dlg.querySelectorAll('[data-e]').forEach(b => b.onclick = () => adminPanel(b.dataset.e));
+  dlg.querySelectorAll('[data-d]').forEach(b => b.onclick = async () => {
+    if(!confirm('Ye driver delete karein?')) return;
+    db.drivers = db.drivers.filter(x => x.id !== b.dataset.d); delete db.loads[b.dataset.d];
+    await commit('Delete ho gaya.'); setTimeout(() => adminPanel(), 600);
+  });
+}
+
+function loadPanel(){
+  dlg.innerHTML = `<h2>Gaadi ka load</h2>
+  ${db.drivers.length ? `<label for="s">Gaadi chunein</label><select id="s">${db.drivers.map(x => `<option value="${x.id}">${esc(x.vehicle)} - ${esc(x.name)}</option>`).join('')}</select>
+  <div class="two"><div><label for="f">Kahan se</label><input id="f"></div><div><label for="t">Kahan tak</label><input id="t"></div></div>
+  <label for="l">Load (kya aur kitna)</label><input id="l" placeholder="Cement, 20 ton">
+  <div class="err" id="err"></div>
+  <div class="acts"><button class="btn" id="sv">Load save karein</button><button class="btn red" id="rm">Load hatayein</button></div>`
+  : '<div class="empty">Pehle admin se driver add karwayein.</div><div class="err" id="err"></div>'}
+  <div class="acts" style="margin-top:18px"><button class="btn ghost" id="cx">Logout</button></div>`;
+  dlg.showModal();
+  $('#cx').onclick = () => dlg.close();
+  if(!db.drivers.length) return;
+  const fill = () => { const l = db.loads[$('#s').value] || {}; $('#f').value = l.from || ''; $('#t').value = l.to || ''; $('#l').value = l.load || ''; };
+  $('#s').onchange = fill; fill();
+  $('#sv').onclick = async () => {
+    const from = $('#f').value.trim(), to = $('#t').value.trim(), load = $('#l').value.trim();
+    if(!from || !to || !load){ $('#err').style.color='var(--red)'; $('#err').textContent = 'Kahan se, kahan tak aur load teeno bharein.'; return; }
+    db.loads[$('#s').value] = {from, to, load}; await commit('Load save ho gaya.');
+  };
+  $('#rm').onclick = async () => { delete db.loads[$('#s').value]; fill(); await commit('Load hata diya.'); };
+}
+
+fetchData();
+</script>
+</body>
+</html>
